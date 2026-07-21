@@ -7,7 +7,7 @@ class MainApp(QtWidgets.QMainWindow):  # pyqt6'ten hazır class yapısı
     def __init__(self):
         super().__init__()  # miras aldık
 
-        uic.loadUi('cezeri_ui_guncel.ui', self)  # qt design dosyası
+        uic.loadUi('ui_son.ui', self)  # qt design dosyası
 
         self.mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
         self.mqtt_client.on_connect = self.on_connect

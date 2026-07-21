@@ -18,7 +18,7 @@ class RaspberryPiSubscriber:
         self.client.on_message = self.on_message
 
         print(f"{CYAN}Connecting to the drone simulation...{SIFIRLA}")
-        self.master = mavutil.mavlink_connection('tcp:127.0.0.1:5760')
+        self.master = mavutil.mavlink_connection('udp:127.0.0.1:14550')
         self.master.wait_heartbeat()
 
     def on_connect(self, client, userdata, flags, rc):
@@ -113,7 +113,7 @@ class RaspberryPiSubscriber:
         self.confirm_command("TAKEOFF")
         print(f"{YESIL}-> TAKEOFF command sent to the drone! (Ascending to 20m){SIFIRLA}\n")
 
-    def move(self, x, y, z):
+    def move_drone(self, x, y, z):
 
         self.master.mav.set_position_target_local_ned_send(
             0,  # time_boot_ms
@@ -177,7 +177,7 @@ class RaspberryPiSubscriber:
     #     )
     #     print(f"{YESIL}-> MOVE command sent to the drone! (Moving forward 100m){SIFIRLA}\n")
 
-    def land(self):
+    def land_drone(self):
         self.master.mav.command_long_send(
             self.master.target_system, self.master.target_component,
             mavutil.mavlink.MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, 0, 0
